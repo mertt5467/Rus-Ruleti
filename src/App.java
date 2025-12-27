@@ -9,6 +9,8 @@ public class App {
 
     static int record = 0; // The number of times the user beat the computer in a row
 
+    static boolean cGame = true;
+
     public static void main(String[] args) throws Exception {
         System.out.println("---------- RUS RULETI ----------");
         System.out.println("Baslamak icin enter'i tuslayiniz.");
@@ -27,8 +29,14 @@ public class App {
             int choose = input.nextInt();
             input.nextLine();
             switch (choose) {
-                case 1 -> computerGame();
-                case 2 -> versusGame();
+                case 1 -> {
+                    computerGame();
+                    cGame = true;
+                }
+                case 2 -> {
+                    versusGame();
+                    cGame = false;
+                }
                 case 3 -> System.exit(0);
                 default -> System.out.println("Yanlis tuslama.");
             }
@@ -238,8 +246,8 @@ public class App {
             System.out.println("Bilgisayar mermi sayisini seciyor...");
             bulletNumber = computerBulletChoose();
             Thread.sleep(2000);
-            System.out.println("Bilgisayarin sectigi mermi sayisi: " + bulletNumber);
-            Thread.sleep(500);
+            System.out.println("Bilgisayar mermi sayisini secti.");
+            Thread.sleep(1000);
             bulletPlacement(bulletNumber);
         }
     }
@@ -302,7 +310,9 @@ public class App {
             return 0;
         } else {
             System.out.println("BOM - SILAH PATLADI.");
-            record = 0;
+            if (cGame == true) {
+                record = 0;
+            }
             Thread.sleep(1000);
             return 1;
         }
